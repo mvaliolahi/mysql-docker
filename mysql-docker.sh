@@ -12,8 +12,12 @@ if [ ! -z "$2" ]; then
     DATABASE_PORT=$2;
 fi	
 
+
+# Create Volume
+    docker volume create mysql-data > /dev/null 2>&1;
+
 # Create Network. 
-docker network create mysql-network  > /dev/null 2>&1;
+    docker network create mysql-network  > /dev/null 2>&1;
 
 # Pull MySQL Image.
 if [[ "$(docker images -q mysql:5.7 2> /dev/null)" == "" ]]; then
@@ -30,7 +34,7 @@ MYSQL_CONTAINER=$(docker run --name mysql57 \
            --net=mysql-network \
            -p $DATABASE_PORT:3306 \
            -e MYSQL_ROOT_PASSWORD=$DATABASE_PASSWORD \
-           -v /home/meysam/docker-volumes:/var/lib/mysql \
+           -v mysql-data:/var/lib/mysql \
            -d mysql:5.7  2>&1
 );
 if [[ $MYSQL_CONTAINER  ]]; then 
