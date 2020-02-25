@@ -17,7 +17,7 @@ fi
     docker volume create mysql-data > /dev/null 2>&1;
 
 # Create Network. 
-    docker network create mysql-network  > /dev/null 2>&1;
+    docker network create general-network  > /dev/null 2>&1;
 
 # Pull MySQL Image.
 if [[ "$(docker images -q mysql:5.7 2> /dev/null)" == "" ]]; then
@@ -31,7 +31,7 @@ fi
 
 # Start MySQL
 MYSQL_CONTAINER=$(docker run --name mysql57 \
-           --net=mysql-network \
+           --net=general-network \
            -p $DATABASE_PORT:3306 \
            -e MYSQL_ROOT_PASSWORD=$DATABASE_PASSWORD \
            -v mysql-data:/var/lib/mysql \
@@ -45,7 +45,7 @@ fi
 
 # Run PHPMyAdmin 
 PHP_MY_ADMIN=$(docker run --name php-my-admin \
-           --net=mysql-network \
+           --net=general-network \
            -e MYSQL_ROOT_PASSWORD=$DATABASE_PASSWORD \
            -e PMA_HOST="mysql57" \
            -e PMA_PORT=$DATABASE_PORT \
