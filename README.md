@@ -10,3 +10,8 @@
 
 	$ ./mysql-docker.sh
 
+
+###### Import data
+
+	$ cat data.sql | docker exec -it mysql57 mysql -uroot -p123456789 db-name
+
