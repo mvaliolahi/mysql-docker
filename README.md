@@ -13,5 +13,5 @@
 
 ###### Import data
 
-	$ cat data.sql | docker exec -it mysql57 mysql -uroot -p123456789 db-name
+	$ docker exec -i mysql57 mysql -uroot -p123456789 db-name < data.sql
 
